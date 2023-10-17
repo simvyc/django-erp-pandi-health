@@ -1,2 +1,2 @@
-# django-erp-optipandi
-Django based ERP OptiPandi for manufacture of components
+# django-erp-pandi
+Django based ERP OptiPandi for manufacture of pandi components
