@@ -1,5 +1,5 @@
 # django-erp-pandi
-Django based ERP OptiPandi for manufacture of pandi components
+Django based ERP Pandi for manufacture of pandi components
 
 Set up
 It is advised to install all the requirements inside virtualenv.
