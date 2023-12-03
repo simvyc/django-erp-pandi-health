@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa; /* Lighter background color */
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .dashboard-card {
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center">User Dashboard</h2>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="dashboard-card">
+                    <h4>Revenue</h4>
+                    <p>$100,000</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="dashboard-card">
+                    <h4>Orders</h4>
+                    <p>50</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="dashboard-card">
+                    <h4>Customers</h4>
+                    <p>100</p>
+                </div>
+            </div>
+
+        </div>
+
+  <div class="container">
+        <h2 class="text-center">Order list</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Order Number</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Material</th>
+                    <th scope="col">Dimensions</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Lead Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Add your table rows with data here -->
+                <tr>
+                    <td>1</td>
+                    <td>Steel</td>
+                    <td>10x20x5</td>
+                    <td>100</td>
+                    <td>2 weeks</td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js are required for Bootstrap components -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
