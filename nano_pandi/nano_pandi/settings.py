@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Just the User things 
+AUTH_USER_MODEL = "accounts.Account"
 
 # Application definition
 
@@ -38,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'orders',
+    'accounts',
+    
 ]
 
 MIDDLEWARE = [
@@ -128,7 +132,7 @@ STATICFILES_DIRS = ['nano_pandi/static']
 #     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 # ]
 
-MEDIA_ROOT = BASE_DIR /'nano_pandi/media'
+MEDIA_ROOT = BASE_DIR /'nano_pandi/'
 
 LOGIN_REDIRECT_URL = '/'
 
