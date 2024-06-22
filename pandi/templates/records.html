@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% comment %} {% include "navbar" %} {% endcomment %}
+
+{% block content %}
+<title>Medical Records</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    th, td:nth-child(5) {
+        width: 200px;
+    }
+</style>
+</head>
+<body>
+<h1>Medical Records</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Registration Date</th>
+            <th>Visit Date</th>
+            <th>Doctor</th>
+            <th>Specialty</th>
+            <th>Patient Symptoms/Examination Notes</th>
+            <th>Diagnosis</th>
+            <th>Medical Treatment</th>
+            <th>Prescriptions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>2024-06-01</td>
+            <td>2024-06-15</td>
+            <td>Dr. John Smith</td>
+            <td>Cardiology</td>
+            <td>Chest pain, shortness of breath during exercise</td>
+            <td>Angina</td>
+            <td>Lifestyle changes, medication</td>
+            <td>Aspirin, Nitroglycerin</td>
+        </tr>
+        <tr>
+            <td>2024-05-22</td>
+            <td>2024-06-10</td>
+            <td>Dr. Jane Doe</td>
+            <td>Dermatology</td>
+            <td>Itchy rash on arms and legs</td>
+            <td>Eczema</td>
+            <td>Topical steroids, moisturizers</td>
+            <td>Hydrocortisone cream</td>
+        </tr>
+        <!-- More rows as needed -->
+    </tbody>
+</table>
+</body>
+</html>
+{% endblock %}
