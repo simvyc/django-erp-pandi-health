@@ -1,4 +1,4 @@
-# django-erp-pandi-health
+# django-erp-pandis-health
 Django based ERP Pandi for patients medical records
 
 Set up
