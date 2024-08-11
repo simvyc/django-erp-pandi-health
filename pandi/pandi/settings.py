@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'medical_records',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -118,7 +119,24 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# Default primary key field type
+#--------------------------------!!!------------------------------
+STATIC_ROOT = BASE_DIR /'static'
+STATICFILES_DIRS = [
+    'pandi/static',
+]
+
+# media files configuration
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR /'media'
+
+
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}
+
+#--------------------------------!!!------------------------------
+
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

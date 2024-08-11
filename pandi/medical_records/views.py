@@ -5,6 +5,9 @@ from django.http import HttpResponse
 def records(request):
     return render(request, 'records.html')
 
+# def records(request):
+#     return HttpResponse('This is records list.')
+
 def prescriptions(request):
     return HttpResponse('This is prescriptions list.')
 
