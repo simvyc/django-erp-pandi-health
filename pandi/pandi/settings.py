@@ -117,23 +117,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
-
-#--------------------------------!!!------------------------------
-STATIC_ROOT = BASE_DIR /'static'
+STATIC_URL = '/static/'  
+STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [
-    'pandi/static',
+    BASE_DIR / "static",  # This points to the "static" directory at the project level
 ]
 
-# media files configuration
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR /'media'
+# # media files configuration
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = BASE_DIR /'media'
 
 
-from django.contrib.messages import constants as messages
-MESSAGE_TAGS = {
-    messages.ERROR: 'danger',
-}
+# from django.contrib.messages import constants as messages
+# MESSAGE_TAGS = {
+#     messages.ERROR: 'danger',
+# }
 
 #--------------------------------!!!------------------------------
 
