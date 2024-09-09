@@ -22,6 +22,32 @@ body{
     background-color: rgba(0, 0, 0, 0.372);
 
 }
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ensure the wrapper takes the full height */
+}
+.card {
+    width: 450px; 
+    padding: 40px; 
+    border-radius: 50px; 
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+}
+.wrapper .card {
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(3px);
+}
+
+.card h4 {
+    text-align: center; 
+    color: rgb(57, 57, 57);
+    font-size: 25px;
+    /* font-weight: bold; */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
 .nav {
     position: fixed;
     top:0;
