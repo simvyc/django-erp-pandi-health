@@ -9,7 +9,7 @@
         <div class="card-body p-4">
           <!-- Registration Header -->
           <h4 class="text-center text-primary mb-4">
-            <i class="bx bx-user"></i> Register to Pandi Health
+            <i class="bx bx-user"></i> Register
           </h4>
 
           <!-- Registration Form -->
@@ -18,9 +18,9 @@
 
             <!-- Loop through form fields for consistent styling -->
             {% for field in form %}
-              <div class="row mb-3 align-items-center">
-                <label for="{{ field.id_for_label }}" class="col-sm-4 col-form-label text-end">{{ field.label }}</label>
-                <div class="col-sm-8">
+              <div class="row align-items-center">
+                <label for="{{ field.id_for_label }}" class="col-sm-5 col-form-label text-end">{{ field.label }}</label>
+                <div class="col-sm-7">
                   {{ field }}
                   {% if field.errors %}
                     <div class="text-danger">
