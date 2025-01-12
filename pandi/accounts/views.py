@@ -1,45 +1,50 @@
 from django.shortcuts import render, redirect, HttpResponse
-from django.contrib.auth import login
-from .forms import PatientRegistrationForm
-from django.contrib.auth.views import LoginView
-from django.urls import reverse
-from accounts.models import Patient, Doctor
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login as auth_login
+from .forms import LoginForm, PatientRegistrationForm
+from accounts.models import Patient
+from django.shortcuts import render, get_object_or_404
+from .models import Patient
 
 # Create your views here.
 
-# def register(request):
-#     return render(request, 'accounts/register.html')
+from django.shortcuts import render, redirect
+from .forms import PatientRegistrationForm
+
+def register_patient(request):
+    if request.method == 'POST':
+        form = PatientRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse("Success!!!")
+    else:
+        form = PatientRegistrationForm()
+    return render(request, 'accounts/register_patient.html', {'form': form})
 
 def login(request):
-    return render(request, 'accounts/login.html')
+    if request.method == 'POST':
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            # Authenticate and log in the user
+            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+            if user is not None:
+                auth_login(request, user)
+                # Redirect to a success
+                return redirect('home')
+    else:
+        form = LoginForm()
+
+    return render(request, 'accounts/login.html', {'form': form})
 
 def logout(request):
     return HttpResponse("This is LogOut")
 
-def patient_registration(request):
-    if request.method == 'POST':
-        form = PatientRegistrationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)  # Log the user in after registration
-            return redirect('home')  # Redirect to a success page
-    else:
-        form = PatientRegistrationForm()
-    return render(request, 'accounts/patient_registration.html', {'form': form})
+def patient_profile(request):
+    # Ensure the user is authenticated and linked to a patient profile
+    if not request.user.is_authenticated:
+        return redirect('login')
 
-class CustomLoginView(LoginView):
-    def get_success_url(self):
-        if hasattr(self.request.user, 'patient_profile'):
-            return reverse('patient_dashboard')  # Redirect to the patient dashboard
-        elif hasattr(self.request.user, 'doctor_profile'):
-            return reverse('doctor_dashboard')  # Redirect to the doctor dashboard
-        return reverse('home')
-    
-@login_required
-def patient_dashboard(request):
-    return render(request, 'accounts/patient_dashboard.html')
+    # Retrieve the patient's profile linked to the logged-in user
+    patient = get_object_or_404(Patient, user=request.user)
 
-@login_required
-def doctor_dashboard(request):
-    return render(request, 'accounts/doctor_dashboard.html')
+    # Render the profile page with patient details
+    return render(request, 'patient_profile.html', {'patient': patient})
