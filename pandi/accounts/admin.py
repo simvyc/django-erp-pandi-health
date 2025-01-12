@@ -1,45 +1,52 @@
 from django.contrib import admin
+from .models import Patient, Doctor
 
-# Register your models here.
-from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .models import User, Patient, Doctor
+@admin.register(Patient)
+class PatientAdmin(admin.ModelAdmin):
 
-# Extend the default UserAdmin to use the custom User model
-class UserAdmin(BaseUserAdmin):
-    model = User
-    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff')
-    list_filter = ('is_staff', 'is_superuser', 'is_active')
-    fieldsets = (
-        (None, {'fields': ('username', 'password')}),
-        ('Personal Info', {'fields': ('first_name', 'last_name', 'email', 'phone_number', 'city')}),
-        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
-        ('Important Dates', {'fields': ('last_login', 'date_joined')}),
+    list_display = ('first_name', 'last_name', 'email', 'phone_number', 'gender','is_active', 'family_doctor')
+    search_fields = ('first_name', 'last_name', 'email', 'phone_number')
+    list_filter = ('gender', 'is_active', 'family_doctor')
+
+    fields = (
+        'user', 'first_name', 'last_name', 'gender', 
+        'phone_number', 'email', 'address', 'city', 'state', 'zip_code', 'is_active', 'family_doctor'
     )
-    add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('username', 'email', 'password1', 'password2', 'first_name', 'last_name'),
+    # Read-only fields (e.g., registration date should not be editable)
+    # readonly_fields = ('registration_date',)
+
+@admin.register(Doctor)
+class DoctorAdmin(admin.ModelAdmin):
+    list_display = ('first_name', 'last_name', 'specialty', 'email', 'phone_number', 'license_number', 'room_name', 'get_patients')
+    search_fields = ('first_name', 'last_name', 'email', 'phone_number', 'license_number', 'specialty')
+    list_filter = ('specialty', 'room_name')
+    
+    fieldsets = (
+        ("Personal Information", {
+            'fields': ('user', 'first_name', 'last_name', 'phone_number', 'email')
+        }),
+        ("Address Information", {
+            'fields': ('residence_address', 'registration_address')
+        }),
+        ("Professional Details", {
+            'fields': ('room_name', 'specialty', 'license_number')
+        }),
+        ("Emergency Contact", {
+            'fields': ('contact_person_name', 'contact_person_phone')
+        }),
+        ("Additional Information", {
+            'fields': ('allergies',)
         }),
     )
-    search_fields = ('username', 'email', 'first_name', 'last_name')
-    ordering = ('username',)
-    filter_horizontal = ('groups', 'user_permissions')
-
-
-admin.site.register(User, UserAdmin)
-
-
-class PatientAdmin(admin.ModelAdmin):
-    list_display = ('user', 'gender', 'allergies')
-    search_fields = ('user__username', 'user__email', 'allergies')
-
-admin.site.register(Patient, PatientAdmin)
-
-
-class DoctorAdmin(admin.ModelAdmin):
-    list_display = ('user', 'specialty', 'license_number')
-    search_fields = ('user__username', 'user__email', 'specialty', 'license_number')
-
-admin.site.register(Doctor, DoctorAdmin)
+    
+    ordering = ('last_name', 'first_name')
+    
+    readonly_fields = ('user', 'get_patients')
+    
+    def get_patients(self, obj):
+        patients = obj.patients.all()  # Reverse relation from Doctor to Patient
+        if patients.exists():
+            return ", ".join([f"{patient.first_name} {patient.last_name}" for patient in patients])
+        return "No patients assigned."
+    get_patients.short_description = "Assigned Patients"
 

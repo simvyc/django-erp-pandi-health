@@ -4,9 +4,9 @@
 
 <div class="wrapper">
   <div class="row justify-content-center">
-    <div class="">
+    <div class="col-lg-8 col-md-10">
       <div class="card shadow-lg border-0">
-        <div class="card-body p-4">
+        <div class="card-body-lg">
           <!-- Registration Header -->
           <h4 class="text-center text-primary mb-4">
             <i class="bx bx-user"></i> Register
@@ -19,8 +19,8 @@
             <!-- Loop through form fields for consistent styling -->
             {% for field in form %}
               <div class="row align-items-center">
-                <label for="{{ field.id_for_label }}" class="col-sm-5 col-form-label text-end">{{ field.label }}</label>
-                <div class="col-sm-7">
+                <label for="{{ field.id_for_label }}" class="col-5 mt-2 col-form-label">{{ field.label }}</label>
+                <div class="col-7">
                   {{ field }}
                   {% if field.errors %}
                     <div class="text-danger">
@@ -34,7 +34,7 @@
             {% endfor %}
 
             <!-- Submit Button -->
-            <div class="text-center">
+            <div class="mt-3 text-center">
               <button type="submit" class="btn btn-primary">Register</button>
             </div>
           </form>
