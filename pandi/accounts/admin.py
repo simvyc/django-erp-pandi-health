@@ -41,7 +41,7 @@ class DoctorAdmin(admin.ModelAdmin):
     
     ordering = ('last_name', 'first_name')
     
-    readonly_fields = ('user', 'get_patients')
+    readonly_fields = ('get_patients',)
     
     def get_patients(self, obj):
         patients = obj.patients.all()  # Reverse relation from Doctor to Patient

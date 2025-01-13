@@ -15,7 +15,7 @@ def register_patient(request):
         form = PatientRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponse("Success!!!")
+            return redirect('registration_successful')
     else:
         form = PatientRegistrationForm()
     return render(request, 'accounts/register_patient.html', {'form': form})
@@ -38,6 +38,9 @@ def login(request):
 def logout(request):
     return HttpResponse("This is LogOut")
 
+def registration_successful(request):
+    return render(request, 'accounts/registration_successful.html')
+
 def patient_profile(request):
     # Ensure the user is authenticated and linked to a patient profile
     if not request.user.is_authenticated:
@@ -48,3 +51,4 @@ def patient_profile(request):
 
     # Render the profile page with patient details
     return render(request, 'patient_profile.html', {'patient': patient})
+

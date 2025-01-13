@@ -1,21 +1,21 @@
 <div class="wrapper">
     <nav class="nav">
         <div class="nav-logo">
-            <p>Pandi's Health.</p>
+            <a href="{% url 'home' %}" class="logo-link">Pandi's Health.</a>
         </div>
 
         <div class="nav-menu">
         <ul>
-            <li><a href="{% url 'home' %}" class="link">Home</a></li>
             <li><a href="{% url 'about' %}" class="link">About</a></li>
             <li><a href="{% url 'article_list' %}" class="link">News</a></li>
-            <li><a href="{% url 'contact' %}" class="link">Contact</a></li>
+            <li><a href="{% url 'contact' %}" class="link">Contacts</a></li>
         </ul>
         </div>
         
         <div class="nav-button">
             <a href="{% url 'login' %}" class="btn white-btn" id="loginBtn">Login</a>
             <a href="{% url 'register_patient' %}" class="btn btn-outline-light" id="registerBtn">Register</a>
+            
         </div>
 
         <div class="nav-menu-btn">
