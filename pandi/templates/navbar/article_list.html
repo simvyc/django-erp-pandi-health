@@ -3,23 +3,12 @@
 {% block content %}
 <div class="wrapper container">
   <h1 class="text-primary">Articles</h1>
-
-  <!-- Loop through articles and display them -->
-  <div class="">
-    {% for article in articles %}
-      <div class="col-md-6 col-lg-4 mb-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">{{ article.title }}</h5>
-            <p class="card-text">{{ article.description|truncatewords:20 }}</p>
-            <p class="text-muted">Published: {{ article.published|date:"F j, Y" }}</p>
-            {% comment %} <a href="{% url 'article_detail' article.slug %}" class="btn btn-primary">Read More</a> {% endcomment %}
-          </div>
-        </div>
-      </div>
-    {% comment %} {% empty %}
-      <p class="text-center">No articles found.</p> {% endcomment %}
-    {% endfor %}
-  </div>
-</div>
+  <ul>
+      {% for article in articles %}
+          <li>
+              <a href="{% url 'article_detail' slug=article.slug %}">{{ article.title }}</a>
+              <p>By {{ article.author.first_name }} {{ article.author.last_name }}</p>
+          </li>
+      {% endfor %}
+  </ul>
 {% endblock %}

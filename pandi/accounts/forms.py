@@ -1,58 +1,37 @@
 from django import forms
 from .models import Patient
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.models import User
+
+User = get_user_model()
 
 class PatientRegistrationForm(forms.ModelForm):
+    # Fields from CustomUser
+    first_name = forms.CharField(
+        max_length=50,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First name'}),
+    )
+    last_name = forms.CharField(
+        max_length=50,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last name'}),
+    )
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'example@email.com'}),
+    )
+    phone_number = forms.CharField(
+        max_length=15,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone number'}),
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}),
+    )
+    confirm_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirm Password'}),
+    )
 
     class Meta:
         model = Patient
-        fields = [
-            'first_name', 'last_name', 'gender',
-            'phone_number', 'email', 'address',
-            'city', 'state', 'zip_code'
-        ]
-        widgets = {
-            'first_name': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'First name'
-            }),
-            'last_name': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Last name'
-            }),
-            # 'date_of_birth': forms.DateInput(attrs={
-            #     'type': 'date',
-            #     'class': 'form-control',
-            # }),
-            'gender': forms.Select(attrs={
-                'class': 'form-control'
-            }),
-            'phone_number': forms.TextInput(attrs={
-                'class': 'form-control',
-            }),
-            'email': forms.EmailInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'example@email.com'
-            }),
-            'address': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Address',
-                'rows': 1
-            }),
-            'city': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'City'
-            }),
-            'state': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'State'
-            }),
-            'zip_code': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Zip code'
-            }),
-        }
+        fields = []  # No model-specific fields from Patient
 
     def clean(self):
         cleaned_data = super().clean()
@@ -61,24 +40,31 @@ class PatientRegistrationForm(forms.ModelForm):
 
         if password != confirm_password:
             self.add_error('confirm_password', "Passwords do not match.")
+
+        email = cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            self.add_error('email', "A user with this email already exists.")
+
         return cleaned_data
 
     def save(self, commit=True):
-        patient = super().save(commit=False)
-        email = self.cleaned_data.get('email')
-        password = self.cleaned_data.get('password')
-
         user = User.objects.create_user(
-            username=email,
-            email=email,
-            password=password,
+            username=self.cleaned_data.get('email'),
+            email=self.cleaned_data.get('email'),
+            password=self.cleaned_data.get('password'),
             first_name=self.cleaned_data.get('first_name'),
             last_name=self.cleaned_data.get('last_name'),
         )
-        patient.user = user  
+        user.phone_number = self.cleaned_data.get('phone_number')
+       
+        if commit:
+            user.save()
 
+        patient = super().save(commit=False)
+        patient.user = user
         if commit:
             patient.save()
+
         return patient
 
 class LoginForm(AuthenticationForm):
