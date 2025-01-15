@@ -32,8 +32,6 @@ def login(request):
             user = authenticate(username=username, password=password)
 
             if user is not None:
-                auth_login(request, user)
-
                 if hasattr(user, 'profile_doctor'):
                     return render(request, 'accounts/profile_doctor.html')  
                 elif hasattr(user, 'profile_patient'):
