@@ -3,6 +3,7 @@ from django.urls import path
 from .views import profile_patient, profile_doctor, register_patient, login, logout, registration_successful
 
 
+
 urlpatterns = [
     path('register_patient/', register_patient, name='register_patient'),
     path('login/', login, name='login'),

@@ -1,7 +1,70 @@
-{% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
-
-<h1> Doctor/DASH. </h1>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Profile</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/profiles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1> Welcome, Dr. {{ user.first_name }} {{ user.last_name }}!</h1>
+            <p>Today's Date:</p>
+        </header>
+        <aside class="sidebar">
+            <img src="{% static 'images/accounts/user.png' %}" alt="User Image" width="100">
+            <nav>
+                <ul>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">My Patients</a></li>
+                    <li><a href="#">Schedule</a></li>
+                    <li><a href="#">Articles</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main">
+            <div class="tasks">
+                <h2>My Tasks</h2>
+                <!-- Task content here -->
+            </div>
+            <div class="patients">
+                <h2>Patients List</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Patient</th>
+                            <th>Email</th>
+                            <th>Mobile Phone</th>
+                            <th>Last Visit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Lisa Beno</td>
+                            <td>email</td>
+                            <td>phone</td>
+                            <td>last visit</td>
+                        </tr>
+                        <tr>
+                            <td>Angelina Jolie</td>
+                            <td>email</td>
+                            <td>phone</td>
+                            <td>last visit</td>
+                        </tr>
+                        <tr>
+                            <td>Bob Myers</td>
+                            <td>email</td>
+                            <td>phone</td>
+                            <td>last visit</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
 {% endblock %}
