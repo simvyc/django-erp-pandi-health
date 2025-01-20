@@ -2,7 +2,11 @@ body {
     font-family: Arial, sans-serif;
     padding: 10px;
     box-sizing: border-box;
-    background: #d6e4f0;
+    /* background: #d6e4f0; */
+    background: url("/static/images/dashboard.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .container {
@@ -12,20 +16,18 @@ body {
         "sidebar main";
     grid-template-rows: 1fr 8fr ;
     grid-template-columns: 1fr 4fr;
-    height: 100vh;
     gap: 20px;
     padding: 20px;
 }
 
 header {
     grid-area: header;
-    background: #d6e4f0;
+    background: #c2cfdac0;
     padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-radius: 20px;
-    box-shadow: -5px -5px 5px #ffffff, 5px 5px 5px #a9b9c9;
 }
 
 header h1 {
@@ -35,10 +37,9 @@ header h1 {
 
 .sidebar {
     grid-area: sidebar;
-    background: #d6e4f0;
+    background:#c2cfdac0;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: -5px -5px 10px #ffffff, 5px 5px 10px #a9b9c9;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -49,7 +50,7 @@ header h1 {
     height: 100px;
     border-radius: 20%;
     display: block;
-    box-shadow: -5px -5px 10px #ffffff, 5px 5px 10px #a9b9c9;
+
 }
 
 .main {
@@ -60,9 +61,8 @@ header h1 {
 }
 
 .tasks, .patients {
-    background: #d6e4f0;
+    background: #d0dde8e7;
     border-radius: 20px;
-    box-shadow: -5px -5px 10px #ffffff, 5px 5px 10px #a9b9c9;
     padding: 20px;
     flex-grow: 1;
 }
@@ -77,7 +77,7 @@ header h1 {
 }
 
 .patients table th, .patients table td {
-    border: 1px solid #a9b9c9;
+    border: 1px solid #2c2b2be0;
     padding: 8px;
     text-align: left;
 }

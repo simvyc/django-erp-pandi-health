@@ -52,40 +52,35 @@ class CustomUser(AbstractUser):
         return self.email
     
 class Patient(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='profile_patient')
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='patient')
     is_active = models.BooleanField(default=True)
     is_patient = models.BooleanField(default=True, editable=False)
     contact_person_name = models.CharField(max_length=100)
     contact_person_phone = models.CharField(max_length=15)
 
-    family_doctor = models.ForeignKey(
-        'Doctor',
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name='patients',
-        verbose_name="Family Doctor"
+    family_doctor = models.ForeignKey('Doctor', on_delete=models.SET_NULL, null=True, blank=True, related_name='patients', verbose_name="Family Doctor"
     )
-
+    
     def __str__(self):
-        return f"{self.user.first_name} {self.user.last_name}"  # Fixed reference to user fields
+        return f"{self.user.first_name} {self.user.last_name}"
 
     class Meta:
         verbose_name = "Patient"
         verbose_name_plural = "Patients"
     
 class Doctor(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='profile_doctor')
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='doctor')
     room_name = models.CharField(max_length=100)
-    specialty = models.CharField(max_length=100)
+    speciality = models.CharField(max_length=100)
     license_number = models.CharField(max_length=20, unique=True)
     contact_person_name = models.CharField(max_length=100)
     contact_person_phone = models.CharField(max_length=15)
     is_active = models.BooleanField(default=True)
     is_doctor = models.BooleanField(default=True, editable=False)
+ 
 
     def __str__(self):
-        return f"Dr. {self.user.first_name} {self.user.last_name} - {self.specialty}"  # Fixed reference to user fields
+        return f"Dr. {self.user.first_name} {self.user.last_name} - {self.speciality}" 
 
     class Meta:
         verbose_name = "Doctor"

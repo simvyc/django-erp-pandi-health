@@ -32,9 +32,9 @@ def login(request):
             user = authenticate(username=username, password=password)
 
             if user is not None:
-                if hasattr(user, 'profile_doctor'):
+                if hasattr(user, 'doctor'):
                     return render(request, 'accounts/profile_doctor.html')  
-                elif hasattr(user, 'profile_patient'):
+                elif hasattr(user, 'patient'):
                     return render(request, 'accounts/profile_patient.html') 
                 else:
                     return HttpResponse('Ner tokio acc') 
@@ -62,4 +62,8 @@ def profile_doctor(request):
     if not request.user.is_authenticated:
         return redirect('login')
     doctor = get_object_or_404(Doctor, user=request.user)
-    return render(request, 'profile_doctor.html', {'doctor': doctor})
+    patients = doctor.patients.all()
+    return render(request, 'profile_doctor.html', {
+        'doctor': doctor, 
+        'patients': patients,
+        })

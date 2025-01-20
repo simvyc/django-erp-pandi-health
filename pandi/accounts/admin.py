@@ -13,12 +13,12 @@ class CustomUserAdmin(DefaultUserAdmin):
     search_fields = ('email', 'username', 'first_name', 'last_name')
 
     def is_doctor(self, obj):
-        return hasattr(obj, 'profile_doctor')  # Check if the user has a related Doctor profile
+        return hasattr(obj, 'doctor')  # Check if the user has a related Doctor profile
     is_doctor.boolean = True
     is_doctor.short_description = 'Doctor'
 
     def is_patient(self, obj):
-        return hasattr(obj, 'profile_patient')  # Check if the user has a related Patient profile
+        return hasattr(obj, 'patient')  # Check if the user has a related Patient profile
     is_patient.boolean = True
     is_patient.short_description = 'Patient'
 
@@ -51,16 +51,16 @@ class PatientAdmin(admin.ModelAdmin):
 
 @admin.register(Doctor)
 class DoctorAdmin(admin.ModelAdmin):
-    list_display = ('get_full_name', 'specialty', 'get_email', 'get_phone_number', 'license_number', 'room_name', 'get_patients')
-    search_fields = ('user__first_name', 'user__last_name', 'user__email', 'user__phone_number', 'license_number', 'specialty')
-    list_filter = ('specialty', 'room_name')
+    list_display = ('get_full_name', 'speciality', 'get_email', 'get_phone_number', 'license_number', 'room_name', 'get_patients')
+    search_fields = ('user__first_name', 'user__last_name', 'user__email', 'user__phone_number', 'license_number', 'speciality')
+    list_filter = ('speciality', 'room_name')
 
     fieldsets = (
         ("Personal Information", {
             'fields': ('user',)
         }),
         ("Professional Details", {
-            'fields': ('room_name', 'specialty', 'license_number')
+            'fields': ('room_name', 'speciality', 'license_number')
         }),
         ("Emergency Contact", {
             'fields': ('contact_person_name', 'contact_person_phone')
