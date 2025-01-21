@@ -1,16 +1,10 @@
-from django.shortcuts import render, redirect, HttpResponse
-from django.contrib.auth import authenticate, login as auth_login
-from .forms import PatientRegistrationForm
-from accounts.models import Patient
-from django.shortcuts import render, get_object_or_404
-from .models import Doctor, Patient
-from django.contrib.auth import get_user_model
+from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm
-from django.conf import settings
-
-User = get_user_model()
-
-# Create your views here.
+from django.core.exceptions import ObjectDoesNotExist
+from .models import Doctor, Patient
+from .forms import PatientRegistrationForm
+from django.contrib.auth.decorators import login_required
 
 def register_patient(request):
     if request.method == 'POST':
@@ -20,8 +14,8 @@ def register_patient(request):
             return redirect('registration_successful')
     else:
         form = PatientRegistrationForm()
-    return render(request, 'accounts/register_patient.html', {'form': form})
 
+    return render(request, 'accounts/register_patient.html', {'form': form})
 
 def login(request):
     if request.method == 'POST':
@@ -31,39 +25,39 @@ def login(request):
             password = form.cleaned_data['password']
             user = authenticate(username=username, password=password)
 
-            if user is not None:
+            if user:
+                auth_login(request, user)
+
                 if hasattr(user, 'doctor'):
-                    return render(request, 'accounts/profile_doctor.html')  
+                    return redirect('profile_doctor')
                 elif hasattr(user, 'patient'):
-                    return render(request, 'accounts/profile_patient.html') 
+                    return redirect('profile_patient')
                 else:
-                    return HttpResponse('Ner tokio acc') 
+                    return HttpResponse('No associated account type.')
             else:
-                form.add_error(None, "Invalid username or password")
+                form.add_error(None, "Invalid username or password.")
     else:
         form = AuthenticationForm()
 
     return render(request, 'accounts/login.html', {'form': form})
 
-
 def logout(request):
-    return HttpResponse("This is LogOut")
+    auth_logout(request)  
+    return redirect('login')
 
 def registration_successful(request):
     return render(request, 'accounts/registration_successful.html')
 
+@login_required
 def profile_patient(request):
-    if not request.user.is_authenticated:
-        return redirect('login')
     patient = get_object_or_404(Patient, user=request.user)
-    return render(request, 'profile_patient.html', {'patient': patient})
+    return render(request, 'accounts/profile_patient.html', {'patient': patient})
 
+@login_required
 def profile_doctor(request):
-    if not request.user.is_authenticated:
-        return redirect('login')
-    doctor = get_object_or_404(Doctor, user=request.user)
-    patients = doctor.patients.all()
-    return render(request, 'profile_doctor.html', {
-        'doctor': doctor, 
-        'patients': patients,
-        })
+    if hasattr(request.user, 'doctor'):
+        doctor = request.user.doctor
+        patients = doctor.patients.all()
+    else:
+        patients = []
+    return render(request, 'accounts/profile_doctor.html', {'patients': patients})

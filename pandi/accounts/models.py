@@ -58,7 +58,7 @@ class Patient(models.Model):
     contact_person_name = models.CharField(max_length=100)
     contact_person_phone = models.CharField(max_length=15)
 
-    family_doctor = models.ForeignKey('Doctor', on_delete=models.SET_NULL, null=True, blank=True, related_name='patients', verbose_name="Family Doctor"
+    family_doctor = models.ForeignKey('Doctor', on_delete=models.SET_NULL, null=True, blank=True, related_name='patients', verbose_name="doctor"
     )
     
     def __str__(self):
@@ -77,7 +77,6 @@ class Doctor(models.Model):
     contact_person_phone = models.CharField(max_length=15)
     is_active = models.BooleanField(default=True)
     is_doctor = models.BooleanField(default=True, editable=False)
- 
 
     def __str__(self):
         return f"Dr. {self.user.first_name} {self.user.last_name} - {self.speciality}" 
