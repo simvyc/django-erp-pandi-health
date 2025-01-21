@@ -29,13 +29,17 @@
         </aside>
         <main class="main">
             <div class="tasks">
-                <h2>My Tasks</h2>
+                {% comment %} <h2>My Tasks</h2> {% endcomment %}
                 <h2>Assigned Patients:</h2>
-                    <ul>
+                <ul>
+                    {% if patients %}
                         {% for patient in patients %}
-                            <li>{{ user.patients.first_name }} {{ patient.user.last_name }}</li>
+                            <li>{{ patient.user.first_name }} {{ patient.user.last_name }}</li>
                         {% endfor %}
-                    </ul>
+                    {% else %}
+                        <p>No patients assigned to you.</p>
+                    {% endif %}
+                </ul>
             </div>
 
 
