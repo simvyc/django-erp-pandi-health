@@ -1,55 +1,40 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-5">
+        <div class="card shadow-sm">
+          <div class="card-body">
+          <h4 class="card-title text-center text-info mb-3">Contacts</h4>
+          <p class="text-center">If you have any questions or need assistance, feel free to reach out to us:</p>
 
-<div class="wrapper">
-    <div class="card">
-        <h4>Contacts</h4>
-        <p>If you have any questions or need assistance, feel free to reach out to us:</p>
-
-        <ul>
+          <ul class="list-unstyled mb-4 text-center">
             <li><strong>Phone:</strong> +370 61549 811</li>
-            <li><strong>Email:</strong> <a href="mailto:pandi@health.com">pandi@health.com</a></li>
+            <li><strong>Email:</strong> <a class="text-info" href="mailto:pandi@health.com">pandi@health.com</a></li>
             <li><strong>Address:</strong> 13 Health Street, Wellness City, Country</li>
-        </ul>
+          </ul>
 
-        <h5 style="margin-top: 20px; text-align:center;">Working Hours</h5>
-            <table style="width: 100%; margin-top: 10px; text-align: center;">
-                <tr>
-                    <td>Monday</td>
-                    <td>9:00 AM - 6:00 PM</td>
-                </tr>
-                <tr>
-                    <td>Tuesday</td>
-                    <td>9:00 AM - 6:00 PM</td>
-                </tr>
-                <tr>
-                    <td>Wednesday</td>
-                    <td>9:00 AM - 6:00 PM</td>
-                </tr>
-                <tr>
-                    <td>Thursday</td>
-                    <td>9:00 AM - 6:00 PM</td>
-                </tr>
-                <tr>
-                    <td>Friday</td>
-                    <td>9:00 AM - 6:00 PM</td>
-                </tr>
-                <tr>
-                    <td>Saturday</td>
-                    <td>11:00 AM - 3:00 PM</td>
-                </tr>
-                <tr>
-                    <td>Sunday</td>
-                    <td>Closed</td>
-                </tr>
-            </table>
+          <h5 class="text-center text-info mb-3">Working Hours</h5>
+          <table class="table table-borderless text-center">
+            <tbody>
+              <tr><td>Monday</td><td>9:00 AM - 6:00 PM</td></tr>
+              <tr><td>Tuesday</td><td>9:00 AM - 6:00 PM</td></tr>
+              <tr><td>Wednesday</td><td>9:00 AM - 6:00 PM</td></tr>
+              <tr><td>Thursday</td><td>9:00 AM - 6:00 PM</td></tr>
+              <tr><td>Friday</td><td>9:00 AM - 6:00 PM</td></tr>
+              <tr><td>Saturday</td><td>11:00 AM - 3:00 PM</td></tr>
+              <tr><td>Sunday</td><td>Closed</td></tr>
+            </tbody>
+          </table>
 
-        <!-- Contact Form Button -->
-        <p style="text-align: center; margin-top: 20px;">
-            <a href="" class="btn btn-primary">Contact Form</a>
-        </p>
+          <!-- Contact Form Button -->
+          <div class="text-center mt-3">
+            <a href="" class="btn btn-info px-3">Contact Form</a>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
-
 {% endblock %}

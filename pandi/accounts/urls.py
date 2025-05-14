@@ -11,4 +11,6 @@ urlpatterns = [
     path('registration_successful/', registration_successful, name='registration_successful'),
     path('profile_patient/', profile_patient, name='profile_patient'),
     path('profile_doctor/', profile_doctor, name='profile_doctor'),
+
+
 ]

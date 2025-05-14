@@ -5,7 +5,7 @@ from django.db import models
 
 class CustomUserManager(BaseUserManager):
     """
-    Custom manager for CustomUser.
+    Custom manager for CustomUser
     """
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -84,3 +84,13 @@ class Doctor(models.Model):
     class Meta:
         verbose_name = "Doctor"
         verbose_name_plural = "Doctors"
+
+class Appointment(models.Model):
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name='appointments')
+    patient_name = models.CharField(max_length=100)
+    date = models.DateField()
+    time = models.TimeField()
+    reason = models.TextField(blank=True)
+
+    def __str__(self):
+        return f"{self.patient_name} on {self.date} at {self.time}"

@@ -61,3 +61,28 @@ def profile_doctor(request):
     else:
         patients = []
     return render(request, 'accounts/profile_doctor.html', {'patients': patients})
+
+
+
+from django.shortcuts import render, redirect
+from .forms import AppointmentForm
+from .models import Appointment
+
+def doctor_schedule(request):
+    if request.method == 'POST':
+        form = AppointmentForm(request.POST)
+        if form.is_valid():
+            appointment = form.save(commit=False)
+            appointment.doctor = request.user
+            appointment.save()
+            return redirect('doctor_schedule')
+    else:
+        form = AppointmentForm()
+
+    appointments = Appointment.objects.filter(doctor=request.user).order_by('date', 'time')
+    return render(request, 'schedule.html', {'form': form, 'appointments': appointments})
+
+
+
+
+

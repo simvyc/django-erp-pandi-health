@@ -68,17 +68,35 @@ class PatientRegistrationForm(forms.ModelForm):
         return patient
 
 class LoginForm(AuthenticationForm):
+
     username = forms.CharField(
         max_length=150,
         widget=forms.TextInput(attrs={
-            'class': 'form-control',
+   
             'placeholder': 'Username',
             'autofocus': True,
+            'autocomplete': 'username',
         })
     )
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={
-            'class': 'form-control',
+   
             'placeholder': 'Password',
+            'autocomplete': 'current-password',
         })
     )
+from django import forms
+from .models import Appointment
+
+
+
+class AppointmentForm(forms.ModelForm):
+    class Meta:
+        model = Appointment
+        fields = ['patient_name', 'date', 'time', 'reason']
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'time': forms.TimeInput(attrs={'type': 'time', 'class': 'form-control'}),
+            'reason': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'patient_name': forms.TextInput(attrs={'class': 'form-control'}),
+        }

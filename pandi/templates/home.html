@@ -1,11 +1,62 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
-<div class="wrapper">
-    <div class="card" style="">
-        <p>Home</p>
+<!-- Hero / Banner Section with fog-style background image -->
+<div class="hero-banner position-relative text-center text-white d-flex align-items-center justify-content-center" style="
+    background: url('{% static 'images/lab.jpg' %}') no-repeat center center;
+    background-size: cover;
+    height: 600px;
+">
+  <!-- Fog effect overlay -->
+  <div class="position-absolute top-0 start-0 w-100 h-100" style="
+      background-color: rgba(255, 255, 255, 0.431); 
+      backdrop-filter: blur(1px); 
+      z-index: 1;">
+  </div>
+
+  <!-- Text content -->
+  <div class="position-relative" style="z-index: 2;">
+    <h1 class="display-5 fw-bold text-info">Welcome to Pandi Health</h1>
+    <p class=" text-dark mb-4">Your trusted partner in healthcare, providing compassionate care with excellence.</p>
+    <a href="{% url 'about' %}" class="btn btn-info px-3">Learn More About Us</a>
+  </div>
+</div>
+
+
+<!-- Optional: Services / Highlights Section -->
+<div class="container py-5">
+  <div class="row text-center">
+    <div class="col-md-4 mb-4">
+      <i class="bi bi-heart-pulse fs-1 text-info mb-2"></i>
+      <h5>Comprehensive Care</h5>
+      <p class="text-muted">From general check-ups to advanced treatments, we've got you covered.</p>
     </div>
+    <div class="col-md-4 mb-4">
+      <i class="bi bi-person-check fs-1 text-info mb-2"></i>
+      <h5>Expert Team</h5>
+      <p class="text-muted">Highly trained doctors and staff who put your health first.</p>
+    </div>
+    <div class="col-md-4 mb-4">
+      <i class="bi bi-clock-history fs-1 text-info mb-2"></i>
+      <h5>Flexible Scheduling</h5>
+      <p class="text-muted">Appointments that work around your busy schedule.</p>
+    </div>
+  </div>
+</div>
+
+<div class="container my-5 ">
+    <img src="{% static 'images/hospital.jpg' %}" class="img-fluid rounded " alt="Hospital Building">
+  </div>
+
+<!-- Contact Section -->
+<div class="bg-info text-white py-5">
+  <div class="container text-center">
+    <h4 class="mb-3">Get in Touch</h4>
+    <p class="mb-1"><strong>Phone:</strong> +370 61549 811</p>
+    <p class="mb-1"><strong>Email:</strong> <a href="mailto:pandi@health.com" class="text-white text-decoration-underline">pandi@health.com</a></p>
+    <p class="mb-0"><strong>Address:</strong> 13 Health Street, Wellness City, Country</p>
+  </div>
 </div>
 
 {% endblock %}
