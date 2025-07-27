@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm
-from django.core.exceptions import ObjectDoesNotExist
-from .models import Doctor, Patient
+from .models import Patient
 from .forms import PatientRegistrationForm
 from django.contrib.auth.decorators import login_required
 
@@ -10,14 +9,15 @@ def register_patient(request):
     if request.method == 'POST':
         form = PatientRegistrationForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('registration_successful')
+            user = form.save()
+            auth_login(request, user)
+            return redirect('profile_patient')
     else:
         form = PatientRegistrationForm()
 
     return render(request, 'accounts/register_patient.html', {'form': form})
 
-def login(request):
+def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
@@ -61,26 +61,6 @@ def profile_doctor(request):
     else:
         patients = []
     return render(request, 'accounts/profile_doctor.html', {'patients': patients})
-
-
-
-from django.shortcuts import render, redirect
-from .forms import AppointmentForm
-from .models import Appointment
-
-def doctor_schedule(request):
-    if request.method == 'POST':
-        form = AppointmentForm(request.POST)
-        if form.is_valid():
-            appointment = form.save(commit=False)
-            appointment.doctor = request.user
-            appointment.save()
-            return redirect('doctor_schedule')
-    else:
-        form = AppointmentForm()
-
-    appointments = Appointment.objects.filter(doctor=request.user).order_by('date', 'time')
-    return render(request, 'schedule.html', {'form': form, 'appointments': appointments})
 
 
 
