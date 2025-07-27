@@ -1,4 +1,5 @@
 # django-erp-pandi-health
+
 **Django based ERP Pandi for patients medical records**
 
 :rocket: **Setup Notes**
@@ -16,8 +17,8 @@ After cloning the project and installing dependencies:
 
 **User Roles:**
 
-* :health_worker: Doctors are added by the superuser through the admin panel.
+- :health_worker: Doctors are added by the superuser through the admin panel.
 
-* :raising_hand: Patients can register themselves using the registration form.
+- :raising_hand: Patients can register themselves using the registration form.
 
-Once users are created, you can log in as either a doctor or a patient depending on your role.
+Once users are created, users can login through the login form.
